@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aarón Chávez | Desarrollador de Software & Sistemas Web</title>
-    <meta name="description" content="Desarrollo a medida de sitios web de alto rendimiento y sistemas de gestión de inventarios y asistencia. Soluciones digitales robustas por Aarón Chávez.">
+    <meta name="description" content="Desarrollo a medida de sitios web de alto rendimiento y sistemas de gestión corporativos. Portafolio profesional de ingeniería de software por Aarón Chávez.">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,13 +12,14 @@
 
     <style>
         :root {
-            --bg-principal: #0b0f17; /* Fondo oscuro premium */
-            --bg-superficie: #131c2e; /* Gris plomo para tarjetas */
-            --bg-borde: #222f47; /* Plomo medio para líneas de división */
-            --texto-principal: #f8fafc; /* Blanco roto hiper legible */
-            --texto-secundario: #94a3b8; /* Gris pizarra para textos largos */
-            --acentuado: #38bdf8; /* Azul tecnológico para llamadas a la acción */
-            --acentuado-glow: rgba(56, 189, 248, 0.15);
+            --bg-principal: #080c14; /* Gris plomo profundo */
+            --bg-superficie: #0f172a; /* Azul grisáceo oscuro para tarjetas */
+            --bg-superficie-hover: #1e293b;
+            --bg-borde: #1e293b; 
+            --texto-principal: #f8fafc; 
+            --texto-secundario: #94a3b8; 
+            --acentuado: #38bdf8; /* Azul tecnológico insignia */
+            --acentuado-glow: rgba(56, 189, 248, 0.12);
             --fuente-sans: 'Inter', sans-serif;
             --fuente-mono: 'JetBrains Mono', monospace;
         }
@@ -41,19 +42,25 @@
             overflow-x: hidden;
         }
 
-        /* Utilidades de Selección */
-        ::selection {
-            background-color: var(--acentuado);
-            color: var(--bg-principal);
+        /* --- Efecto de Revelado por Scroll --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        /* Encabezado Navegación */
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Encabezado */
         header {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            background-color: rgba(11, 15, 23, 0.8);
+            background-color: rgba(8, 12, 20, 0.85);
             backdrop-filter: blur(12px);
             border-bottom: 1px solid var(--bg-borde);
             z-index: 100;
@@ -74,7 +81,6 @@
             font-weight: 600;
             color: var(--texto-principal);
             text-decoration: none;
-            letter-spacing: -0.5px;
         }
 
         .logo span {
@@ -87,23 +93,22 @@
             font-size: 0.95rem;
             font-weight: 500;
             margin-left: 2rem;
-            transition: color 0.3s ease;
+            transition: color 0.3s;
         }
 
         nav a:hover {
             color: var(--texto-principal);
         }
 
-        /* Sección Hero */
+        /* Hero */
         .hero {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 10rem 2rem 6rem 2rem;
-            min-height: 85vh;
+            padding: 12rem 2rem 6rem 2rem;
+            min-height: 95vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            align-items: flex-start;
         }
 
         .badge-dev {
@@ -114,11 +119,12 @@
             color: var(--acentuado);
             padding: 0.4rem 1rem;
             border-radius: 100px;
+            width: fit-content;
             margin-bottom: 1.5rem;
         }
 
         .hero h1 {
-            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            font-size: clamp(2.5rem, 5.5vw, 4.8rem);
             font-weight: 700;
             line-height: 1.1;
             letter-spacing: -2px;
@@ -126,19 +132,25 @@
         }
 
         .hero h1 span {
-            color: var(--texto-secundario);
+            background: linear-gradient(to right, #94a3b8, #f8fafc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             display: block;
-            font-size: clamp(2rem, 4vw, 3.8rem);
         }
 
         .hero p {
             font-size: clamp(1.1rem, 2vw, 1.3rem);
             color: var(--texto-secundario);
-            max-width: 700px;
+            max-width: 750px;
             margin-bottom: 3rem;
         }
 
-        /* Botones Cta */
+        .btn-container {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
         .btn-principal {
             background-color: var(--texto-principal);
             color: var(--bg-principal);
@@ -146,7 +158,6 @@
             border-radius: 6px;
             text-decoration: none;
             font-weight: 600;
-            font-size: 1rem;
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
             border: 1px solid transparent;
         }
@@ -154,7 +165,23 @@
         .btn-principal:hover {
             background-color: transparent;
             color: var(--texto-principal);
-            border-color: var(--bg-borde);
+            border-color: var(--texto-secundario);
+            transform: translateY(-2px);
+        }
+
+        .btn-secundario {
+            background-color: transparent;
+            color: var(--texto-principal);
+            padding: 1rem 2rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 500;
+            border: 1px solid var(--bg-borde);
+            transition: all 0.3s ease;
+        }
+
+        .btn-secundario:hover {
+            background-color: var(--bg-superficie);
             transform: translateY(-2px);
         }
 
@@ -162,7 +189,7 @@
         section.contenedor {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 6rem 2rem;
+            padding: 8rem 2rem;
             border-top: 1px solid var(--bg-borde);
         }
 
@@ -179,81 +206,103 @@
         }
 
         .section-header h2 {
-            font-size: 2.2rem;
+            font-size: 2.5rem;
             font-weight: 600;
             letter-spacing: -1px;
         }
 
-        /* Misión y Visión (Enfoque y Propósito) */
+        /* Misión y Visión */
         .grid-mv {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
-            gap: 3rem;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2.5rem;
         }
 
         .card-mv {
             background-color: var(--bg-superficie);
             border: 1px solid var(--bg-borde);
-            padding: 3rem;
+            padding: 3.5rem 2.5rem;
             border-radius: 8px;
-            transition: border-color 0.3s ease;
+            transition: border-color 0.3s;
         }
 
         .card-mv:hover {
-            border-color: rgba(255, 255, 255, 0.1);
+            border-color: rgba(56, 189, 248, 0.3);
         }
 
         .card-mv h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            font-weight: 600;
+            font-size: 1.6rem;
+            margin-bottom: 1.2rem;
         }
 
         .card-mv p {
             color: var(--texto-secundario);
-            font-size: 1.05rem;
         }
 
-        /* Proceso de Trabajo */
-        .timeline {
+        /* Proceso */
+        .proceso-timeline {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
             gap: 2rem;
         }
 
-        .step-card {
-            position: relative;
-            padding: 2rem;
-            background-color: rgba(19, 28, 46, 0.4);
+        .proceso-step {
+            background-color: rgba(15, 23, 42, 0.4);
             border: 1px solid var(--bg-borde);
+            padding: 2.5rem 2rem;
             border-radius: 8px;
+            position: relative;
         }
 
-        .step-num {
+        .proceso-step .num {
             font-family: var(--fuente-mono);
-            font-size: 2.5rem;
+            font-size: 3rem;
             font-weight: 700;
-            color: rgba(56, 189, 248, 0.1);
+            color: rgba(56, 189, 248, 0.05);
             position: absolute;
             top: 1rem;
             right: 1.5rem;
         }
 
-        .step-card h3 {
-            font-size: 1.2rem;
-            margin-bottom: 0.75rem;
-            margin-top: 1rem;
+        .proceso-step h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
         }
 
-        .step-card p {
+        .proceso-step p {
             color: var(--texto-secundario);
             font-size: 0.95rem;
         }
 
-        /* Portafolio (Proyectos Anteriores) */
+        /* Portafolio Filtrable */
+        .filter-container {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background-color: var(--bg-superficie);
+            color: var(--texto-secundario);
+            border: 1px solid var(--bg-borde);
+            padding: 0.6rem 1.2rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+
+        .filter-btn.active, .filter-btn:hover {
+            background-color: var(--texto-principal);
+            color: var(--bg-principal);
+            border-color: var(--texto-principal);
+        }
+
         .portfolio-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 2rem;
         }
 
@@ -261,11 +310,10 @@
             background-color: var(--bg-superficie);
             border: 1px solid var(--bg-borde);
             border-radius: 8px;
-            overflow: hidden;
+            padding: 2.5rem;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            padding: 2.5rem;
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
@@ -275,18 +323,31 @@
             box-shadow: 0 20px 40px var(--acentuado-glow);
         }
 
-        .project-meta {
+        .project-card.hidden {
+            display: none;
+        }
+
+        .project-tag-cat {
             font-family: var(--fuente-mono);
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             color: var(--acentuado);
-            margin-bottom: 1rem;
             text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.4rem;
+            display: block;
+        }
+
+        .project-role {
+            font-size: 0.8rem;
+            color: var(--texto-secundario);
+            font-style: italic;
+            margin-bottom: 1rem;
+            display: block;
         }
 
         .project-card h3 {
             font-size: 1.4rem;
             margin-bottom: 1rem;
-            font-weight: 600;
         }
 
         .project-card p {
@@ -295,49 +356,162 @@
             margin-bottom: 2rem;
         }
 
+        .project-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: auto;
+            margin-bottom: 1.5rem;
+        }
+
+        .project-link-btn {
+            color: var(--texto-principal);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            transition: color 0.2s;
+        }
+
+        .project-link-btn:hover {
+            color: var(--acentuado);
+        }
+
         .tech-stack {
             display: flex;
             flex-wrap: wrap;
             gap: 0.5rem;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            padding-top: 1rem;
         }
 
         .tech-tag {
             font-family: var(--fuente-mono);
             font-size: 0.75rem;
-            background-color: rgba(255,255,255,0.04);
+            background-color: rgba(255,255,255,0.03);
             color: var(--texto-secundario);
             padding: 0.2rem 0.6rem;
             border-radius: 4px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Preguntas Frecuentes */
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .faq-item {
+            background-color: var(--bg-superficie);
+            border: 1px solid var(--bg-borde);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: border-color 0.3s;
+        }
+
+        .faq-item:hover {
+            border-color: rgba(255,255,255,0.1);
+        }
+
+        .faq-question {
+            padding: 1.5rem;
+            width: 100%;
+            text-align: left;
+            background: none;
+            border: none;
+            color: var(--texto-principal);
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .faq-answer {
+            padding: 0 1.5rem 1.5rem 1.5rem;
+            color: var(--texto-secundario);
+            display: none;
+            border-top: 1px solid rgba(255,255,255,0.02);
+            padding-top: 1rem;
+        }
+
+        .faq-item.active .faq-answer {
+            display: block;
         }
 
         /* Contacto */
-        .contact-box {
-            background-color: var(--bg-superficie);
-            border: 1px solid var(--bg-borde);
-            border-radius: 12px;
-            padding: 4rem 2rem;
-            text-align: center;
-            max-width: 800px;
-            margin: 0 auto;
+        .contact-layout {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 4rem;
         }
 
-        .contact-box h3 {
+        .contact-info h3 {
             font-size: 2rem;
             margin-bottom: 1rem;
         }
 
-        .contact-box p {
+        .contact-info p {
             color: var(--texto-secundario);
-            max-width: 500px;
-            margin: 0 auto 2.5rem auto;
+            margin-bottom: 2rem;
+        }
+
+        .info-link {
+            color: var(--texto-principal);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.8rem;
+            font-weight: 500;
+        }
+
+        .info-link:hover {
+            color: var(--acentuado);
+        }
+
+        .contact-form {
+            background-color: var(--bg-superficie);
+            border: 1px solid var(--bg-borde);
+            padding: 3rem;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-group label {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--texto-secundario);
+        }
+
+        .contact-form input, .contact-form textarea {
+            padding: 0.8rem 1rem;
+            background-color: var(--bg-principal);
+            border: 1px solid var(--bg-borde);
+            border-radius: 6px;
+            color: var(--texto-principal);
+            font-size: 0.95rem;
+        }
+
+        .contact-form input:focus, .contact-form textarea:focus {
+            outline: none;
+            border-color: var(--acentuado);
         }
 
         /* Footer */
         footer {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 3rem 2rem;
+            padding: 4rem 2rem;
             border-top: 1px solid var(--bg-borde);
             display: flex;
             justify-content: space-between;
@@ -346,26 +520,16 @@
             font-size: 0.9rem;
         }
 
-        footer p a {
-            color: var(--texto-principal);
-            text-decoration: none;
-        }
-
-        /* Responsividad en Pantallas Medianas y Chicas */
-        @media (max-width: 768px) {
+        @media (max-width: 900px) {
+            .contact-layout {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
             .grid-mv {
                 grid-template-columns: 1fr;
             }
-            .nav-container {
-                padding: 1rem;
-            }
             nav {
-                display: none; /* Simplificado para móviles */
-            }
-            footer {
-                flex-direction: column;
-                gap: 1rem;
-                text-align: center;
+                display: none;
             }
         }
     </style>
@@ -378,128 +542,299 @@
             <nav>
                 <a href="#proposito">Enfoque</a>
                 <a href="#proceso">Proceso</a>
-                <a href="#portafolio">Proyectos</a>
+                <a href="#portafolio">Portafolio</a>
+                <a href="#faq">Preguntas</a>
                 <a href="#contacto">Contacto</a>
             </nav>
         </div>
     </header>
 
     <main>
-        <section class="hero">
-            <div class="badge-dev">Freelance Software Engineer</div>
-            <h1>Diseño sitios web rápidos<span> e ingenio sistemas a medida.</span></h1>
-            <p>Construyo plataformas digitales seguras, estables y optimizadas para posicionar en Google. Especializado en transformar ideas complejas en código limpio.</p>
-            <a href="#contacto" class="btn-principal">Iniciar consulta de proyecto</a>
+        <section class="hero reveal">
+            <div class="badge-dev">&lt; Full-Stack Software Engineer /&gt;</div>
+            <h1>Ingeniería de software avanzada <span>y desarrollo web de alto impacto.</span></h1>
+            <p>Especializado en estructurar arquitecturas estables, optimizar servidores para alto tráfico y diseñar sistemas de gestión lógica integrados con bases de datos relacionales.</p>
+            <div class="btn-container">
+                <a href="#contacto" class="btn-principal">Iniciar consulta técnica</a>
+                <a href="#portafolio" class="btn-secundario">Explorar portafolio</a>
+            </div>
         </section>
 
-        <section id="proposito" class="contenedor">
+        <section id="proposito" class="contenedor reveal">
             <div class="section-header">
-                <span>01. Propósito Corporativo</span>
-                <h2>Misión & Visión Profesional</h2>
+                <span>01. Filosofía Profesional</span>
+                <h2>Misión, Visión y Valores Técnicos</h2>
             </div>
             <div class="grid-mv">
                 <div class="card-mv">
                     <h3>Nuestra Misión</h3>
-                    <p>Dotar a profesionales y empresas de herramientas de software robustas y sitios web de alto impacto técnico. Mi meta es eliminar la fricción operativa mediante sistemas automatizados y optimizar la presencia digital para asegurar un posicionamiento orgánico real en motores de búsqueda.</p>
+                    <p>Proveer soluciones digitales de alto rendimiento a través de código nativo, estructurado y sin dependencias obsoletas. Mi objetivo prioritario es optimizar la infraestructura de servidores, erradicar plataformas lentas y asegurar un SEO técnico impecable que posicione marcas en los primeros motores de búsqueda.</p>
                 </div>
                 <div class="card-mv">
                     <h3>Nuestra Visión</h3>
-                    <p>Ser el socio tecnológico de referencia en el ámbito freelance, reconocido por la transición transparente de procesos analógicos a sistemas de gestión avanzados (asistencias, inventarios). Apuesto por un internet más limpio, rápido y centrado en el rendimiento del código.</p>
+                    <p>Consolidarme como el partner tecnológico independiente más robusto y confiable del sector. Liderar la transformación e integración de empresas analógicas hacia ecosistemas en la nube 100% automatizados (como controles de inventario y asistencias) priorizando la escalabilidad y seguridad de los datos.</p>
                 </div>
             </div>
         </section>
 
-        <section id="proceso" class="contenedor">
+        <section id="proceso" class="contenedor reveal">
             <div class="section-header">
                 <span>02. Metodología</span>
-                <h2>Cómo transformamos tu idea</h2>
+                <h2>Garantía de desarrollo en 4 fases</h2>
             </div>
-            <div class="timeline">
-                <div class="step-card">
-                    <div class="step-num">01</div>
+            <div class="proceso-timeline">
+                <div class="proceso-step">
+                    <div class="num">01</div>
                     <h3>Descubrimiento</h3>
-                    <p>Analizamos las necesidades operativas de tu negocio o los objetivos de conversión de tu sitio web.</p>
+                    <p>Mapeamos minuciosamente los requerimientos lógicos o cuellos de botella de tu negocio para definir la tecnología óptima.</p>
                 </div>
-                <div class="step-card">
-                    <div class="step-num">02</div>
-                    <h3>Arquitectura</h3>
-                    <p>Diseñamos la estructura del sitio y la lógica de base de datos óptima antes de tirar código.</p>
+                <div class="proceso-step">
+                    <div class="num">02</div>
+                    <h3>Estructuración</h3>
+                    <p>Diseño conceptual de flujos de datos y bases de datos robustas antes de picar código en entornos locales.</p>
                 </div>
-                <div class="step-card">
-                    <div class="step-num">03</div>
-                    <h3>Desarrollo</h3>
-                    <p>Codificación limpia en entornos modernos enfocado en velocidad extrema y seguridad.</p>
+                <div class="proceso-step">
+                    <div class="num">03</div>
+                    <h3>Desarrollo Nítido</h3>
+                    <p>Codificación modular, limpia y responsive enfocada en lograr velocidad de carga extrema en cualquier dispositivo.</p>
                 </div>
-                <div class="step-card">
-                    <div class="step-num">04</div>
-                    <h3>Despliegue</h3>
-                    <p>Configuración minuciosa del servidor, auditoría SEO, lanzamiento y soporte constante.</p>
+                <div class="proceso-step">
+                    <div class="num">04</div>
+                    <h3>Despliegue & SEO</h3>
+                    <p>Lanzamiento e indexación en Google, auditorías de velocidad, hosting eficiente y soporte post-entrega certificado.</p>
                 </div>
             </div>
         </section>
 
-        <section id="portafolio" class="contenedor">
+        <section id="portafolio" class="contenedor reveal">
             <div class="section-header">
                 <span>03. Casos de Éxito</span>
-                <h2>Sistemas y Proyectos Anteriores</h2>
+                <h2>Proyectos y Plataformas en Producción</h2>
             </div>
+
+            <div class="filter-container">
+                <button class="filter-btn active" data-filter="all">Todos los proyectos</button>
+                <button class="filter-btn" data-filter="corporativo">Plataformas Corporativas</button>
+                <button class="filter-btn" data-filter="servicios">Sitios de Servicios</button>
+            </div>
+
             <div class="portfolio-grid">
                 
-                <div class="project-card">
+                <div class="project-card" data-category="corporativo">
                     <div>
-                        <div class="project-meta">Sistema Web Corporativo</div>
-                        <h3>Control de Asistencia de Personal</h3>
-                        <p>Plataforma modular que automatiza el registro de entradas y salidas de colaboradores, cálculo de horas trabajadas y generación automática de reportes ejecutivos en tiempo real.</p>
+                        <span class="project-tag-cat">Portal Corporativo</span>
+                        <span class="project-role">Rol: Co-Desarrollo Core & Arquitectura Base (Fase Inicial)</span>
+                        <h3>Centro Comercial Ecoplaza</h3>
+                        <p>Participación activa en el equipo de ingeniería a cargo de la maquetación base, estructuración inicial y desarrollo core de la plataforma del grupo empresarial. (Nota: Las actualizaciones y mantenimiento actual son gestionados por terceros).</p>
                     </div>
-                    <div class="tech-stack">
-                        <span class="tech-tag">PHP</span>
-                        <span class="tech-tag">MySQL</span>
-                        <span class="tech-tag">JavaScript ES6</span>
+                    <div>
+                        <div class="project-links">
+                            <a href="https://www.ecoplaza.com.pe/" target="_blank" class="project-link-btn">Visitar Sitio Web Oficial ↗</a>
+                        </div>
+                        <div class="tech-stack">
+                            <span class="tech-tag">HTML5</span>
+                            <span class="tech-tag">CSS3</span>
+                            <span class="tech-tag">JavaScript</span>
+                            <span class="tech-tag">PHP</span>
+                        </div>
                     </div>
                 </div>
 
-                <div class="project-card">
+                <div class="project-card" data-category="servicios">
                     <div>
-                        <div class="project-meta">Arquitectura de Datos</div>
-                        <h3>Gestión de Inventarios Inteligente</h3>
-                        <p>Software para la trazabilidad integral de almacenes. Cuenta con alertas automáticas de quiebres de stock, módulo de auditoría y análisis predictivo de existencias.</p>
+                        <span class="project-tag-cat">Desarrollo Web & Conversión</span>
+                        <span class="project-role">Rol: Desarrollador Principal End-to-End</span>
+                        <h3>Asesores Tesis Perú</h3>
+                        <p>Diseño completo, implementación y despliegue integral de una plataforma web educativa orientada a la conversión masiva de leads. Estructura optimizada para captación ágil y SEO local fluido.</p>
                     </div>
-                    <div class="tech-stack">
-                        <span class="tech-tag">Node.js</span>
-                        <span class="tech-tag">Express</span>
-                        <span class="tech-tag">PostgreSQL</span>
+                    <div>
+                        <div class="project-links">
+                            <a href="https://asesorestesisperu.com/" target="_blank" class="project-link-btn">Visitar Sitio Web Oficial ↗</a>
+                        </div>
+                        <div class="tech-stack">
+                            <span class="tech-tag">Web Design</span>
+                            <span class="tech-tag">WordPress Core</span>
+                            <span class="tech-tag">UI/UX</span>
+                            <span class="tech-tag">SEO</span>
+                        </div>
                     </div>
                 </div>
 
-                <div class="project-card">
+                <div class="project-card" data-category="servicios">
                     <div>
-                        <div class="project-meta">Desarrollo Frontend</div>
-                        <h3>Sitios Web con Optimización SEO</h3>
-                        <p>Diseño y configuración completa de infraestructuras web para marcas de servicios. Estructuras ultraligeras que garantizan una calificación de 100/100 en Google Core Web Vitals.</p>
+                        <span class="project-tag-cat">Sitio Web Internacional</span>
+                        <span class="project-role">Rol: Desarrollador Principal End-to-End</span>
+                        <h3>Carlos Best Auto Repair</h3>
+                        <p>Ingeniería de software aplicada para el sector automotriz en el mercado extranjero. Interfaz responsive ultraligera adaptada para conversiones instantáneas y agendamiento de citas rápido.</p>
                     </div>
-                    <div class="tech-stack">
-                        <span class="tech-tag">HTML5</span>
-                        <span class="tech-tag">CSS Grid</span>
-                        <span class="tech-tag">Vanilla JS</span>
+                    <div>
+                        <div class="project-links">
+                            <a href="https://carlosbestautorepair.com/" target="_blank" class="project-link-btn">Visitar Sitio Web Oficial ↗</a>
+                        </div>
+                        <div class="tech-stack">
+                            <span class="tech-tag">HTML5</span>
+                            <span class="tech-tag">Custom CSS</span>
+                            <span class="tech-tag">JavaScript</span>
+                            <span class="tech-tag">Internacionalización</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card" data-category="corporativo">
+                    <div>
+                        <span class="project-tag-cat">Plataforma Empresarial B2B</span>
+                        <span class="project-role">Rol: Desarrollador Principal End-to-End</span>
+                        <h3>MAJVI S.A.C.</h3>
+                        <p>Desarrollo estratégico integral de la identidad y presencia digital corporativa de una empresa de servicios industriales e ingeniería. Código seguro y optimización completa del servidor.</p>
+                    </div>
+                    <div>
+                        <div class="project-links">
+                            <a href="https://majvisac.pe/" target="_blank" class="project-link-btn">Visitar Sitio Web Oficial ↗</a>
+                        </div>
+                        <div class="tech-stack">
+                            <span class="tech-tag">Estructura B2B</span>
+                            <span class="tech-tag">Hosting & DNS</span>
+                            <span class="tech-tag">CSS Grid</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card" data-category="corporativo">
+                    <div>
+                        <span class="project-tag-cat">Ecosistema Salud & Digital</span>
+                        <span class="project-role">Rol: Desarrollador Principal End-to-End</span>
+                        <h3>Konexxion Médica</h3>
+                        <p>Diseño web enfocado en la usabilidad médica institucional. Arquitectura fluida con tiempos de respuesta óptimos orientados a transmitir solidez corporativa y confianza absoluta al paciente.</p>
+                    </div>
+                    <div>
+                        <div class="project-links">
+                            <a href="https://konexxionmedica.com/" target="_blank" class="project-link-btn">Visitar Sitio Web Oficial ↗</a>
+                        </div>
+                        <div class="tech-stack">
+                            <span class="tech-tag">Salud Digital</span>
+                            <span class="tech-tag">PHP Architecture</span>
+                            <span class="tech-tag">SEO Técnico</span>
+                        </div>
                     </div>
                 </div>
 
             </div>
         </section>
 
-        <section id="contacto" class="contenedor">
-            <div class="contact-box">
-                <h3>¿Listo para escalar técnicamente?</h3>
-                <p>Si buscas un dominio y hosting estable, o requieres un sistema a medida que solucione tus dolores de cabeza operativos, construyamos algo sólido juntos.</p>
-                <a href="mailto:tu-correo@aaronchavezdev.com" class="btn-principal">Enviar correo directo</a>
+        <section id="faq" class="contenedor reveal">
+            <div class="section-header">
+                <span>04. Resolución de Dudas</span>
+                <h2>Preguntas Frecuentes</h2>
+            </div>
+            
+            <div class="faq-container">
+                <div class="faq-item">
+                    <button class="faq-question">¿Por qué optar por un desarrollo a medida o limpio frente a plantillas genéricas? <span>+</span></button>
+                    <div class="faq-answer">
+                        Las páginas programadas minuciosamente carecen del exceso de basura en el código que traen los plugins preconstruidos. Esto garantiza velocidades de carga de milisegundos, seguridad impenetrable ante vulnerabilidades y una ventaja masiva frente al algoritmo de indexación de Google.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">¿Cómo se maneja la transferencia del Hosting y Dominio? <span>+</span></button>
+                    <div class="faq-answer">
+                        Te asesoro con absoluta transparencia para adquirir tus recursos a precio mayorista de costo en el mercado global. Tú mantienes la propiedad legal y el control absoluto de tus contraseñas y claves de servidor desde el primer día.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">¿Los sistemas o sitios incluyen garantía de soporte técnico? <span>+</span></button>
+                    <div class="faq-answer">
+                        Sí, por supuesto. Cada entrega incluye un período estricto de auditoría y soporte ante incidencias no previstas, además de la entrega de documentación técnica clara si el cliente requiere escalar las funciones en el futuro.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contacto" class="contenedor reveal">
+            <div class="contact-layout">
+                <div class="contact-info">
+                    <span>05. Conexión Directa</span>
+                    <h3>¿Listo para iniciar tu desarrollo?</h3>
+                    <p>Cuéntame los objetivos operativos que deseas automatizar o el sitio web que tu marca necesita proyectar para diseñar la infraestructura exacta.</p>
+                    <a href="mailto:aaronchavezdev@gmail.com" class="info-link">aaronchavezdev@gmail.com</a>
+                    <a href="#" class="info-link">LinkedIn Corporativo</a>
+                </div>
+                
+                <form class="contact-form" id="mainForm">
+                    <div class="form-group">
+                        <label for="username">Tu Nombre Completo</label>
+                        <input type="text" id="username" required placeholder="Ej. Ricardo Palacios">
+                    </div>
+                    <div class="form-group">
+                        <label for="useremail">Correo Corporativo</label>
+                        <input type="email" id="useremail" required placeholder="Ej. rpalacios@empresa.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="usermessage">Describe los requerimientos del software o web</label>
+                        <textarea id="usermessage" rows="5" required placeholder="Detalla el alcance o idea del sistema corporativo que deseas implementar..."></textarea>
+                    </div>
+                    <button type="submit" class="btn-principal" style="cursor: pointer; border: none;">Enviar consulta técnica</button>
+                </form>
             </div>
         </section>
     </main>
 
     <footer>
         <p>&copy; 2026 aaronchavezdev. Todos los derechos reservados.</p>
-        <p>Ingeniería de software desde el código base.</p>
+        <p>Estrategia digital e ingeniería de software nativa.</p>
     </footer>
 
+    <script>
+        // 1. Efecto Dinámico de Revelado por Scroll (Intersection Observer)
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // 2. Filtro de Categorías del Portafolio
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const projectCards = document.querySelectorAll('.project-card');
+
+        filterButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterButtons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                const filterValue = btn.getAttribute('data-filter');
+
+                projectCards.forEach(card => {
+                    if (filterValue === 'all' || card.getAttribute('data-category') === filterValue) {
+                        card.classList.remove('hidden');
+                    } else {
+                        card.classList.add('hidden');
+                    }
+                });
+            });
+        });
+
+        // 3. Acordeón FAQs
+        const faqItems = document.querySelectorAll('.faq-item');
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            question.addEventListener('click', () => {
+                const isOpen = item.classList.contains('active');
+                faqItems.forEach(i => i.classList.remove('active'));
+                if (!isOpen) {
+                    item.classList.add('active');
+                }
+            });
+        });
+
+        // 4. Envío del Formulario
+        document.getElementById('mainForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('¡Mensaje procesado con éxito en el frontend! Tu arquitectura web está respondiendo al 100%.');
+            this.reset();
+        });
+    </script>
 </body>
 </html>
