@@ -16,8 +16,8 @@
 
     <style>
         :root {
-            --bg-principal: #060911; /* Gris plomo hiper profundo */
-            --bg-superficie: #0b1120; /* Azul grisáceo oscuro para tarjetas */
+            --bg-principal: #060911; /* Gris plomo profundo */
+            --bg-superficie: #0b1120; /* Tarjetas plomo-azul */
             --bg-superficie-hover: #131b2e;
             --bg-borde: #1e293b; 
             --texto-principal: #f8fafc; 
@@ -48,7 +48,7 @@
             position: relative;
         }
 
-        /* --- EFECTOS DE AURORAS DE FONDO (GLOW BLOBS) --- */
+        /* --- Auroras de Fondo --- */
         .glow-bg {
             position: absolute;
             width: 600px;
@@ -77,7 +77,7 @@
             100% { transform: translate(-50px, 50px); }
         }
 
-        /* --- Efecto de Revelado base por Scroll --- */
+        /* --- Efecto Revelado --- */
         .reveal {
             opacity: 0;
             transform: translateY(30px);
@@ -122,6 +122,11 @@
             color: var(--acentuado);
         }
 
+        .nav-right {
+            display: flex;
+            align-items: center;
+        }
+
         nav a {
             color: var(--texto-secundario);
             text-decoration: none;
@@ -132,6 +137,33 @@
         }
 
         nav a:hover {
+            color: var(--texto-principal);
+        }
+
+        /* --- Switcher de Idioma Premium --- */
+        .lang-switcher {
+            display: flex;
+            background-color: rgba(0,0,0,0.3);
+            border: 1px solid var(--bg-borde);
+            padding: 0.2rem;
+            border-radius: 6px;
+            margin-left: 2rem;
+        }
+
+        .lang-btn {
+            background: none;
+            border: none;
+            color: var(--texto-secundario);
+            padding: 0.3rem 0.6rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all 0.2s;
+        }
+
+        .lang-btn.active {
+            background-color: var(--bg-borde);
             color: var(--texto-principal);
         }
 
@@ -220,7 +252,7 @@
             transform: translateY(-2px);
         }
 
-        /* Secciones Generales */
+        /* Secciones */
         section.contenedor {
             max-width: 1200px;
             margin: 0 auto;
@@ -309,30 +341,12 @@
             font-size: 0.95rem;
         }
 
-        /* Portafolio Rediseñado (Efecto Navegador Premium) */
+        /* Portafolio Navegador Mockup */
         .filter-container {
             display: flex;
             gap: 1rem;
             margin-bottom: 3rem;
             flex-wrap: wrap;
-        }
-
-        .filter-btn {
-            background-color: var(--bg-superficie);
-            color: var(--texto-secundario);
-            border: 1px solid var(--bg-borde);
-            padding: 0.6rem 1.2rem;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: 500;
-            font-size: 0.9rem;
-            transition: all 0.3s;
-        }
-
-        .filter-btn.active, .filter-btn:hover {
-            background-color: var(--texto-principal);
-            color: var(--bg-principal);
-            border-color: var(--texto-principal);
         }
 
         .portfolio-grid {
@@ -341,7 +355,6 @@
             gap: 2.5rem;
         }
 
-        /* --- EFECTO CASCADA PARA TARJETAS --- */
         .project-card {
             background-color: var(--bg-superficie);
             border: 1px solid var(--bg-borde);
@@ -351,8 +364,6 @@
             flex-direction: column;
             justify-content: space-between;
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            
-            /* Preparación para la animación por JS */
             opacity: 0;
             transform: translateY(40px);
             transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s, box-shadow 0.3s;
@@ -468,7 +479,7 @@
             border-radius: 4px;
         }
 
-        /* Preguntas Frecuentes */
+        /* FAQs */
         .faq-container {
             max-width: 800px;
             margin: 0 auto;
@@ -581,7 +592,7 @@
             border-color: var(--acentuado);
         }
 
-        /* --- BOTÓN FLOTANTE WHATSAPP REAL --- */
+        /* WhatsApp flotante con pulso */
         .btn-whatsapp-flotante {
             position: fixed;
             bottom: 30px;
@@ -618,14 +629,11 @@
             opacity: 0.4;
         }
 
-        @pragma { visibility: hidden; }
-
         @keyframes whatsappPulse {
             0% { transform: scale(1); opacity: 0.5; }
             100% { transform: scale(1.5); opacity: 0; }
         }
 
-        /* Footer */
         footer {
             max-width: 1200px;
             margin: 0 auto;
@@ -639,16 +647,10 @@
         }
 
         @media (max-width: 900px) {
-            .contact-layout {
-                grid-template-columns: 1fr;
-                gap: 3rem;
-            }
-            .grid-mv {
-                grid-template-columns: 1fr;
-            }
-            nav {
-                display: none;
-            }
+            .contact-layout { grid-template-columns: 1fr; gap: 3rem; }
+            .grid-mv { grid-template-columns: 1fr; }
+            .nav-container { padding: 1rem; }
+            nav { display: none; }
         }
     </style>
 </head>
@@ -657,368 +659,368 @@
     <div class="glow-bg"></div>
     <div class="glow-bg-2"></div>
 
-    <a href="https://wa.me/51932210608?text=Hola%20Aar%C3%B3n,%20vi%20tu%20portafolio%20y%20me%20gustar%C3%ADa%20cotizar%20un%20proyecto." 
-       target="_blank" 
-       class="btn-whatsapp-flotante" 
-       aria-label="Contacto por WhatsApp">
+    <a href="#" id="wspLink" target="_blank" class="btn-whatsapp-flotante" aria-label="WhatsApp">
         <i class="fab fa-whatsapp"></i>
     </a>
 
     <header>
         <div class="nav-container">
             <a href="#" class="logo">aaronchavez<span>dev</span></a>
-            <nav>
-                <a href="#proposito">Enfoque</a>
-                <a href="#proceso">Proceso</a>
-                <a href="#portafolio">Portafolio</a>
-                <a href="#faq">Preguntas</a>
-                <a href="#contacto">Contacto</a>
-            </nav>
+            <div class="nav-right">
+                <nav>
+                    <a href="#proposito" data-i18n="nav-enfoque">Enfoque</a>
+                    <a href="#proceso" data-i18n="nav-proceso">Proceso</a>
+                    <a href="#portafolio" data-i18n="nav-portafolio">Portafolio</a>
+                    <a href="#faq" data-i18n="nav-faq">Preguntas</a>
+                    <a href="#contacto" data-i18n="nav-contacto">Contacto</a>
+                </nav>
+                <div class="lang-switcher">
+                    <button class="lang-btn active" onclick="switchLang('es')">ES</button>
+                    <button class="lang-btn" onclick="switchLang('en')">EN</button>
+                </div>
+            </div>
         </div>
     </header>
 
     <main>
         <section class="hero reveal">
-            <div class="badge-dev">&lt; Full-Stack Software Engineer /&gt;</div>
-            <h1>Ingeniería de software avanzada <span>y desarrollo web de alto impacto.</span></h1>
-            <p>Especializado en estructurar arquitecturas estables, optimizar servidores para alto tráfico y diseñar sistemas de gestión lógica integrados con bases de datos relacionales.</p>
+            <div class="badge-dev" data-i18n="hero-badge">&lt; Full-Stack Software Engineer /&gt;</div>
+            <h1 id="heroTitle">Diseño sitios web rápidos<span> e ingenio sistemas a medida.</span></h1>
+            <p id="heroDesc" data-i18n="hero-p">Especializado en estructurar arquitecturas estables, optimizar servidores para alto tráfico y diseñar sistemas de gestión lógica integrados con bases de datos relacionales.</p>
             <div class="btn-container">
-                <a href="#contacto" class="btn-principal">Iniciar consulta técnica</a>
-                <a href="#portafolio" class="btn-secundario">Explorar portafolio</a>
+                <a href="#contacto" class="btn-principal" data-i18n="hero-btn1">Iniciar consulta técnica</a>
+                <a href="#portafolio" class="btn-secundario" data-i18n="hero-btn2">Explorar portafolio</a>
             </div>
         </section>
 
         <section id="proposito" class="contenedor reveal">
             <div class="section-header">
-                <span>01. Filosofía Profesional</span>
-                <h2>Misión, Visión y Valores Técnicos</h2>
+                <span data-i18n="mv-sub">01. Filosofía Profesional</span>
+                <h2 data-i18n="mv-title">Misión, Visión y Valores Técnicos</h2>
             </div>
             <div class="grid-mv">
                 <div class="card-mv">
-                    <h3>Nuestra Misión</h3>
-                    <p>Proveer soluciones digitales de alto rendimiento a través de código nativo, estructurado y sin dependencias obsoletas. Mi objetivo prioritario es optimizar la infraestructura de servidores, erradicar plataformas lentas y asegurar un SEO técnico impecable que posicione marcas en los primeros motores de búsqueda.</p>
+                    <h3 data-i18n="mision-h3">Nuestra Misión</h3>
+                    <p id="misionText">Proveer soluciones digitales de alto rendimiento a través de código nativo, estructurado y sin dependencias obsoletas. Mi objetivo prioritario es optimizar la infraestructura de servidores, erradicar plataformas lentas y asegurar un SEO técnico impecable que posicione marcas en los primeros motores de búsqueda.</p>
                 </div>
                 <div class="card-mv">
-                    <h3>Nuestra Visión</h3>
-                    <p>Consolidarme como el partner tecnológico independiente más robusto y confiable del sector. Liderar la transformación e integración de empresas analógicas hacia ecosistemas en la nube 100% automatizados (como controles de inventario y asistencias) priorizando la escalabilidad y seguridad de los datos.</p>
+                    <h3 data-i18n="vision-h3">Nuestra Visión</h3>
+                    <p id="visionText">Consolidarme como el partner tecnológico independiente más robusto y confiable del sector. Liderar la transformación e integración de empresas analógicas hacia ecosistemas en la nube 100% automatizados (como controles de inventario y asistencias) priorizando la escalabilidad y seguridad de los datos.</p>
                 </div>
             </div>
         </section>
 
         <section id="proceso" class="contenedor reveal">
             <div class="section-header">
-                <span>02. Metodología</span>
-                <h2>Garantía de desarrollo en 4 fases</h2>
+                <span data-i18n="proc-sub">02. Metodología</span>
+                <h2 data-i18n="proc-title">Garantía de desarrollo en 4 fases</h2>
             </div>
-            <div class="proceso-timeline">
-                <div class="proceso-step">
-                    <div class="num">01</div>
-                    <h3>Descubrimiento</h3>
-                    <p>Mapeamos minuciosamente los requerimientos lógicos o cuellos de botella de tu negocio para definir la tecnología óptima.</p>
+            <div class="proceso-timeline" id="timelineGrid">
                 </div>
-                <div class="proceso-step">
-                    <div class="num">02</div>
-                    <h3>Estructuración</h3>
-                    <p>Diseño conceptual de flujos de datos y bases de datos robustas antes de picar código en entornos locales.</p>
-                </div>
-                <div class="proceso-step">
-                    <div class="num">03</div>
-                    <h3>Desarrollo Nítido</h3>
-                    <p>Codificación modular, limpia y responsive enfocada en lograr velocidad de carga extrema en cualquier dispositivo.</p>
-                </div>
-                <div class="proceso-step">
-                    <div class="num">04</div>
-                    <h3>Despliegue & SEO</h3>
-                    <p>Lanzamiento e indexación en Google, auditorías de velocidad, hosting eficiente y soporte post-entrega certificado.</p>
-                </div>
-            </div>
         </section>
 
         <section id="portafolio" class="contenedor reveal">
             <div class="section-header">
-                <span>03. Casos de Éxito</span>
-                <h2>Proyectos y Plataformas en Producción</h2>
+                <span data-i18n="port-sub">03. Casos de Éxito</span>
+                <h2 data-i18n="port-title">Proyectos y Plataformas en Producción</h2>
             </div>
 
             <div class="filter-container">
-                <button class="filter-btn active" data-filter="all">Todos los proyectos</button>
-                <button class="filter-btn" data-filter="corporativo">Plataformas Corporativas</button>
-                <button class="filter-btn" data-filter="servicios">Sitios de Servicios</button>
+                <button class="filter-btn active" data-filter="all" id="btnFilterAll">Todos los proyectos</button>
+                <button class="filter-btn" data-filter="corporativo" id="btnFilterCorp">Plataformas Corporativas</button>
+                <button class="filter-btn" data-filter="servicios" id="btnFilterServ">Sitios de Servicios</button>
             </div>
 
             <div class="portfolio-grid" id="portfolioGrid">
-                
-                <div class="project-card" data-category="corporativo">
-                    <div class="card-browser-header">
-                        <span class="browser-dot dot-red"></span>
-                        <span class="browser-dot dot-yellow"></span>
-                        <span class="browser-dot dot-green"></span>
-                    </div>
-                    <div class="card-body">
-                        <div>
-                            <span class="project-tag-cat">Portal Corporativo</span>
-                            <span class="project-role">Rol: Co-Desarrollo Core & Arquitectura Base</span>
-                            <h3>Centro Comercial Ecoplaza</h3>
-                            <p>Participación activa en el equipo de ingeniería a cargo de la maquetación base, estructuración inicial y desarrollo core de la plataforma del grupo empresarial.</p>
-                        </div>
-                        <div>
-                            <div class="project-links">
-                                <a href="https://www.ecoplaza.com.pe/" target="_blank" class="project-link-btn">Visitar Sitio Web <i class="fas fa-external-link-alt"></i></a>
-                            </div>
-                            <div class="tech-stack">
-                                <span class="tech-tag">HTML5</span>
-                                <span class="tech-tag">CSS3</span>
-                                <span class="tech-tag">JavaScript</span>
-                                <span class="tech-tag">PHP</span>
-                            </div>
-                        </div>
-                    </div>
                 </div>
-
-                <div class="project-card" data-category="servicios">
-                    <div class="card-browser-header">
-                        <span class="browser-dot dot-red"></span>
-                        <span class="browser-dot dot-yellow"></span>
-                        <span class="browser-dot dot-green"></span>
-                    </div>
-                    <div class="card-body">
-                        <div>
-                            <span class="project-tag-cat">Desarrollo Web & Conversión</span>
-                            <span class="project-role">Rol: Desarrollador Principal End-to-End</span>
-                            <h3>Asesores Tesis Perú</h3>
-                            <p>Diseño completo, implementación y despliegue integral de una plataforma web educativa orientada a la conversión masiva de leads. Estructura optimizada para captación ágil y SEO local.</p>
-                        </div>
-                        <div>
-                            <div class="project-links">
-                                <a href="https://asesorestesisperu.com/" target="_blank" class="project-link-btn">Visitar Sitio Web <i class="fas fa-external-link-alt"></i></a>
-                            </div>
-                            <div class="tech-stack">
-                                <span class="tech-tag">Web Design</span>
-                                <span class="tech-tag">WordPress Core</span>
-                                <span class="tech-tag">UI/UX</span>
-                                <span class="tech-tag">SEO</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-card" data-category="servicios">
-                    <div class="card-browser-header">
-                        <span class="browser-dot dot-red"></span>
-                        <span class="browser-dot dot-yellow"></span>
-                        <span class="browser-dot dot-green"></span>
-                    </div>
-                    <div class="card-body">
-                        <div>
-                            <span class="project-tag-cat">Sitio Web Internacional</span>
-                            <span class="project-role">Rol: Desarrollador Principal End-to-End</span>
-                            <h3>Carlos Best Auto Repair</h3>
-                            <p>Ingeniería de software aplicada para el sector automotriz en el mercado extranjero. Interfaz responsive ultraligera adaptada para conversiones instantáneas.</p>
-                        </div>
-                        <div>
-                            <div class="project-links">
-                                <a href="https://carlosbestautorepair.com/" target="_blank" class="project-link-btn">Visitar Sitio Web <i class="fas fa-external-link-alt"></i></a>
-                            </div>
-                            <div class="tech-stack">
-                                <span class="tech-tag">HTML5</span>
-                                <span class="tech-tag">Custom CSS</span>
-                                <span class="tech-tag">JavaScript</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-card" data-category="corporativo">
-                    <div class="card-browser-header">
-                        <span class="browser-dot dot-red"></span>
-                        <span class="browser-dot dot-yellow"></span>
-                        <span class="browser-dot dot-green"></span>
-                    </div>
-                    <div class="card-body">
-                        <div>
-                            <span class="project-tag-cat">Plataforma Empresarial B2B</span>
-                            <span class="project-role">Rol: Desarrollador Principal End-to-End</span>
-                            <h3>MAJVI S.A.C.</h3>
-                            <p>Desarrollo estratégico integral de la identidad y presencia digital corporativa de una empresa de servicios industriales e ingeniería. Código seguro.</p>
-                        </div>
-                        <div>
-                            <div class="project-links">
-                                <a href="https://majvisac.pe/" target="_blank" class="project-link-btn">Visitar Sitio Web <i class="fas fa-external-link-alt"></i></a>
-                            </div>
-                            <div class="tech-stack">
-                                <span class="tech-tag">Estructura B2B</span>
-                                <span class="tech-tag">Hosting & DNS</span>
-                                <span class="tech-tag">CSS Grid</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-card" data-category="corporativo">
-                    <div class="card-browser-header">
-                        <span class="browser-dot dot-red"></span>
-                        <span class="browser-dot dot-yellow"></span>
-                        <span class="browser-dot dot-green"></span>
-                    </div>
-                    <div class="card-body">
-                        <div>
-                            <span class="project-tag-cat">Ecosistema Salud & Digital</span>
-                            <span class="project-role">Rol: Desarrollador Principal End-to-End</span>
-                            <h3>Konexxion Médica</h3>
-                            <p>Diseño web enfocado en la usabilidad médica institucional. Arquitectura fluida con tiempos de respuesta óptimos orientados a transmitir solidez corporativa.</p>
-                        </div>
-                        <div>
-                            <div class="project-links">
-                                <a href="https://konexxionmedica.com/" target="_blank" class="project-link-btn">Visitar Sitio Web <i class="fas fa-external-link-alt"></i></a>
-                            </div>
-                            <div class="tech-stack">
-                                <span class="tech-tag">Salud Digital</span>
-                                <span class="tech-tag">PHP Architecture</span>
-                                <span class="tech-tag">SEO Técnico</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
         </section>
 
         <section id="faq" class="contenedor reveal">
             <div class="section-header">
-                <span>04. Resolución de Dudas</span>
-                <h2>Preguntas Frecuentes</h2>
+                <span data-i18n="faq-sub">04. Resolución de Dudas</span>
+                <h2 data-i18n="faq-title">Preguntas Frecuentes</h2>
             </div>
-            
-            <div class="faq-container">
-                <div class="faq-item">
-                    <button class="faq-question">¿Por qué optar por un desarrollo a medida o limpio frente a plantillas genéricas? <span>+</span></button>
-                    <div class="faq-answer">
-                        Las páginas programadas minuciosamente carecen del exceso de basura en el código que traen los plugins preconstruidos. Esto garantiza velocidades de carga de milisegundos, seguridad impenetrable ante vulnerabilidades y una ventaja masiva frente al algoritmo de indexación de Google.
-                    </div>
+            <div class="faq-container" id="faqGrid">
                 </div>
-                <div class="faq-item">
-                    <button class="faq-question">¿Cómo se maneja la transferencia del Hosting y Dominio? <span>+</span></button>
-                    <div class="faq-answer">
-                        Te asesoro con absoluta transparencia para adquirir tus recursos a precio mayorista de costo en el mercado global. Tú mantienes la propiedad legal y el control absoluto de tus contraseñas y claves de servidor desde el primer día.
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <button class="faq-question">¿Los sistemas o sitios incluyen garantía de soporte técnico? <span>+</span></button>
-                    <div class="faq-answer">
-                        Sí, por supuesto. Cada entrega incluye un período estricto de auditoría y soporte ante incidencias no previstas, además de la entrega de documentación técnica clara si el cliente requiere escalar las funciones en el futuro.
-                    </div>
-                </div>
-            </div>
         </section>
 
         <section id="contacto" class="contenedor reveal">
             <div class="contact-layout">
                 <div class="contact-info">
-                    <span>05. Conexión Directa</span>
-                    <h3>¿Listo para iniciar tu desarrollo?</h3>
-                    <p>Cuéntame los objetivos operativos que deseas automatizar o el sitio web que tu marca necesita proyectar para diseñar la infraestructura exacta.</p>
+                    <span data-i18n="ct-sub">05. Conexión Directa</span>
+                    <h3 data-i18n="ct-title">¿Listo para iniciar tu desarrollo?</h3>
+                    <p id="ctDesc">Cuéntame los objetivos operativos que deseas automatizar o el sitio web que tu marca necesita proyectar para diseñar la infraestructura exacta.</p>
                     <a href="mailto:aaronbautista784@gmail.com" class="info-link"><i class="fas fa-envelope"></i> aaronbautista784@gmail.com</a>
-                    <a href="https://wa.me/51932210608" target="_blank" class="info-link"><i class="fab fa-whatsapp"></i> +51 932 210 608</a>
+                    <a href="#" id="wspTextLink" target="_blank" class="info-link"><i class="fab fa-whatsapp"></i> +51 932 210 608</a>
                 </div>
                 
-                <form class="contact-form" action="https://formsubmit.co/aaronbautista784@gmail.com" method="POST">
+                <form class="contact-form" action="https://formsubmit.co/aaronbautista784@gmail.com" method="POST" id="contactFormElement">
                     <input type="hidden" name="_captcha" value="false">
                     <input type="hidden" name="_template" value="table">
                     
                     <div class="form-group">
-                        <label for="username">Tu Nombre Completo</label>
+                        <label for="username" data-i18n="form-lbl-name">Tu Nombre Completo</label>
                         <input type="text" id="username" name="Nombre" required placeholder="Ej. Ricardo Palacios">
                     </div>
                     <div class="form-group">
-                        <label for="useremail">Correo de Contacto</label>
+                        <label for="useremail" data-i18n="form-lbl-email">Correo de Contacto</label>
                         <input type="email" id="useremail" name="Email" required placeholder="Ej. rpalacios@empresa.com">
                     </div>
                     <div class="form-group">
-                        <label for="usermessage">Describe los requerimientos del software o web</label>
-                        <textarea id="usermessage" name="Mensaje" rows="5" required placeholder="Detalla el alcance o idea del sistema corporativo que deseas implementar..."></textarea>
+                        <label for="usermessage" data-i18n="form-lbl-msg">Describe los requerimientos del software o web</label>
+                        <textarea id="usermessage" name="Mensaje" rows="5" required placeholder="Detalla el alcance o idea del sistema corporativo..."></textarea>
                     </div>
                     
-                    <button type="submit" class="btn-principal" style="cursor: pointer; border: none;">Enviar consulta técnica</button>
+                    <button type="submit" class="btn-principal" style="cursor: pointer; border: none;" data-i18n="form-btn">Enviar consulta técnica</button>
                 </form>
             </div>
         </section>
     </main>
 
     <footer>
-        <p>&copy; 2026 aaronchavezdev. Todos los derechos reservados.</p>
-        <p>Estrategia digital e ingeniería de software nativa.</p>
+        <p>&copy; 2026 aaronchavezdev. <span data-i18n="footer-rights">Todos los derechos reservados.</span></p>
+        <p data-i18n="footer-tag">Estrategia digital e ingeniería de software nativa.</p>
     </footer>
 
     <script>
-        // 1. Efecto Dinámico de Revelado por Scroll (Intersection Observer)
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                }
+        const diccionario = {
+            es: {
+                "nav-enfoque": "Enfoque", "nav-proceso": "Proceso", "nav-portafolio": "Portafolio", "nav-faq": "Preguntas", "nav-contacto": "Contacto",
+                "hero-badge": "< Full-Stack Software Engineer />",
+                "hero-h1": "Diseño sitios web rápidos<span> e ingenio sistemas a medida.</span>",
+                "hero-p": "Especializado en estructurar arquitecturas estables, optimizar servidores para alto tráfico y diseñar sistemas de gestión lógica integrados con bases de datos relacionales.",
+                "hero-btn1": "Iniciar consulta técnica", "hero-btn2": "Explorar portafolio",
+                "mv-sub": "01. Filosofía Profesional", "mv-title": "Misión, Visión y Valores Técnicos",
+                "mision-h3": "Nuestra Misión",
+                "mision-p": "Proveer soluciones digitales de alto rendimiento a través de código nativo, estructurado y sin dependencias obsoletas. Mi objetivo prioritario es optimizar la infraestructura de servidores, erradicar plataformas lentas y asegurar un SEO técnico impecable que posicione marcas en los primeros motores de búsqueda.",
+                "vision-h3": "Nuestra Visión",
+                "vision-p": "Consolidarme como el partner tecnológico independiente más robusto y confiable del sector. Liderar la transformación e integración de empresas analógicas hacia ecosistemas en la nube 100% automatizados (como controles de inventario y asistencias) priorizando la escalabilidad y seguridad de los datos.",
+                "proc-sub": "02. Metodología", "proc-title": "Garantía de desarrollo en 4 fases",
+                "port-sub": "03. Casos de Éxito", "port-title": "Proyectos y Plataformas en Producción",
+                "filter-all": "Todos los proyectos", "filter-corp": "Plataformas Corporativas", "filter-serv": "Sitios de Servicios",
+                "faq-sub": "04. Resolución de Dudas", "faq-title": "Preguntas Frecuentes",
+                "ct-sub": "05. Conexión Directa", "ct-title": "¿Listo para iniciar tu desarrollo?",
+                "ct-p": "Cuéntame los objetivos operativos que deseas automatizar o el sitio web que tu marca necesita proyectar para diseñar la infraestructura exacta.",
+                "form-lbl-name": "Tu Nombre Completo", "form-lbl-email": "Correo de Contacto", "form-lbl-msg": "Describe los requerimientos del software o web",
+                "form-btn": "Enviar consulta técnica", "footer-rights": "Todos los derechos reservados.", "footer-tag": "Estrategia digital e ingeniería de software nativa.",
+                "wsp-msg": "Hola Aarón, vi tu portafolio y me gustaría cotizar un proyecto.",
+                "visit-site": "Visitar Sitio Web", "role": "Rol",
+                
+                // Timeline
+                steps: [
+                    {num: "01", title: "Descubrimiento", desc: "Mapeamos minuciosamente los requerimientos lógicos o cuellos de botella de tu negocio para definir la tecnología óptima."},
+                    {num: "02", title: "Estructuración", desc: "Diseño conceptual de flujos de datos y bases de datos robustas antes de picar código en entornos locales."},
+                    {num: "03", title: "Desarrollo Nítido", desc: "Codificación modular, limpia y responsive enfocada en lograr velocidad de carga extrema en cualquier dispositivo."},
+                    {num: "04", title: "Despliegue & SEO", desc: "Lanzamiento e indexación en Google, auditorías de velocidad, hosting eficiente y soporte post-entrega certificado."}
+                ],
+                // Proyectos
+                projects: [
+                    {cat: "corporativo", tag: "Portal Corporativo", role: "Co-Desarrollo Core & Arquitectura Base", title: "Centro Comercial Ecoplaza", desc: "Participación activa en el equipo de ingeniería a cargo de la maquetación base, estructuración inicial y desarrollo core de la plataforma del grupo empresarial.", url: "https://www.ecoplaza.com.pe/", tech: ["HTML5", "CSS3", "JavaScript", "PHP"]},
+                    {cat: "servicios", tag: "Desarrollo Web & Conversión", role: "Desarrollador Principal End-to-End", title: "Asesores Tesis Perú", desc: "Diseño completo, implementación y despliegue integral de una plataforma web educativa orientada a la conversión masiva de leads. Estructura optimizada para captación ágil y SEO local.", url: "https://asesorestesisperu.com/", tech: ["Web Design", "WordPress Core", "UI/UX", "SEO"]},
+                    {cat: "servicios", tag: "Sitio Web Internacional", role: "Desarrollador Principal End-to-End", title: "Carlos Best Auto Repair", desc: "Ingeniería de software aplicada para el sector automotriz en el mercado extranjero. Interfaz responsive ultraligera adaptada para conversiones instantáneas.", url: "https://carlosbestautorepair.com/", tech: ["HTML5", "Custom CSS", "JavaScript"]},
+                    {cat: "corporativo", tag: "Plataforma Empresarial B2B", role: "Desarrollador Principal End-to-End", title: "MAJVI S.A.C.", desc: "Desarrollo estratégico integral de la identidad y presencia digital corporativa de una empresa de servicios industriales e ingeniería. Código seguro.", url: "https://majvisac.pe/", tech: ["Estructura B2B", "Hosting & DNS", "CSS Grid"]},
+                    {cat: "corporativo", tag: "Ecosistema Salud & Digital", role: "Desarrollador Principal End-to-End", title: "Konexxion Médica", desc: "Diseño web enfocado en la usabilidad médica institucional. Arquitectura fluida con tiempos de respuesta óptimos orientados a transmitir solidez corporativa.", url: "https://konexxionmedica.com/", tech: ["Salud Digital", "PHP Architecture", "SEO Técnico"]}
+                ],
+                // FAQs
+                faqs: [
+                    {q: "¿Por qué optar por un desarrollo a medida o limpio frente a plantillas genéricas? +", a: "Las páginas programadas minuciosamente carecen del exceso de basura en el código que traen los plugins preconstruidos. Esto garantiza velocidades de carga de milisegundos, seguridad impenetrable ante vulnerabilidades y una ventaja masiva frente al algoritmo de indexación de Google."},
+                    {q: "¿Cómo se maneja la transferencia del Hosting y Dominio? +", a: "Te asesoro con absoluta transparencia para adquirir tus recursos a precio mayorista de costo en el mercado global. Tú mantienes la propiedad legal y el control absoluto de tus contraseñas y claves de servidor desde el primer día."},
+                    {q: "¿Los sistemas o sitios incluyen garantía de soporte técnico? +", a: "Sí, por supuesto. Cada entrega incluye un período estricto de auditoría y soporte ante incidencias no previstas, además de la entrega de documentación técnica clara si el cliente requiere escalar las funciones en el futuro."}
+                ]
+            },
+            en: {
+                "nav-enfoque": "Focus", "nav-proceso": "Process", "nav-portafolio": "Portfolio", "nav-faq": "FAQs", "nav-contacto": "Contact",
+                "hero-badge": "< Full-Stack Software Engineer />",
+                "hero-h1": "I design high-speed websites<span> & engineer custom software.</span>",
+                "hero-p": "Specialized in structuring stable scalable architectures, optimizing servers for high-traffic environments, and designing clean business logic integrated with relational databases.",
+                "hero-btn1": "Start Technical Consultation", "hero-btn2": "Explore Portfolio",
+                "mv-sub": "01. Professional Philosophy", "mv-title": "Mission, Vision & Core Technical Values",
+                "mision-h3": "Our Mission",
+                "mision-p": "To provide high-performance digital solutions through pure, well-structured, native code free of bloated dependencies. My core priority is optimizing server infrastructure, eradicating slow execution speeds, and engineering flawless technical SEO that drives real growth on organic search engines.",
+                "vision-h3": "Our Vision",
+                "vision-p": "To become the top-tier independent technological partner in the market. Leading the complete digital migration of analog business workflows into 100% automated cloud-native ecosystems (such as custom inventory tracking and attendance systems) focusing heavily on data scalability and security.",
+                "proc-sub": "02. Methodology", "proc-title": "High-Standard 4-Phase Development Guarantee",
+                "port-sub": "03. Proven Track Record", "port-title": "Live Production Projects & Platforms",
+                "filter-all": "All Projects", "filter-corp": "Corporate Platforms", "filter-serv": "Service-Based Sites",
+                "faq-sub": "04. Q&A Clearing", "faq-title": "Frequently Asked Questions",
+                "ct-sub": "05. Direct Connection", "ct-title": "Ready to scale your tech infrastructure?",
+                "ct-p": "Tell me about the operational workflows you want to automate or the corporate website your brand needs to deploy, and we will architect the exact solution.",
+                "form-lbl-name": "Your Full Name", "form-lbl-email": "Contact Email", "form-lbl-msg": "Describe your software or web requirements",
+                "form-btn": "Send Technical Request", "footer-rights": "All rights reserved.", "footer-tag": "Digital strategy & cloud-native software engineering.",
+                "wsp-msg": "Hello Aaron, I checked your portfolio and I would like to quote a custom development project.",
+                "visit-site": "Visit Live Site", "role": "Role",
+                
+                // Timeline
+                steps: [
+                    {num: "01", title: "Discovery", desc: "We map out your business logic bottlenecks and operational challenges to accurately define the optimal tech stack."},
+                    {num: "02", title: "Data Architecture", desc: "Conceptual design of scalable data structures, system modules, and relational databases prior to local coding environments."},
+                    {num: "03", title: "Clean Coding", desc: "Modular, responsive, and performance-tuned programming aimed at maintaining blazing-fast load times on any smart device."},
+                    {num: "04", title: "Deployment & SEO", desc: "Cloud launch optimization, automated Google indexing audits, performance profiling, and certified post-delivery support."}
+                ],
+                // Proyectos
+                projects: [
+                    {cat: "corporativo", tag: "Corporate Portal", role: "Core Infrastructure & Initial Architecture Team", title: "Ecoplaza Shopping Mall", desc: "Active participation in the core engineering team handling the initial boilerplate, foundational architecture layout, and core development for the corporate business group. (Note: Ongoing maintenance is handled by third parties).", url: "https://www.ecoplaza.com.pe/", tech: ["HTML5", "CSS3", "JavaScript", "PHP"]},
+                    {cat: "servicios", tag: "Web Development & Conversion", role: "Lead End-to-End Developer", title: "Asesores Tesis Peru", desc: "Complete UI design, system implementation, and full cloud deployment of an educational platform optimized for high-volume lead conversion and localized organic SEO integration.", url: "https://asesorestesisperu.com/", tech: ["Web Design", "WordPress Core", "UI/UX", "SEO"]},
+                    {cat: "servicios", tag: "International Web Architecture", role: "Lead End-to-End Developer", title: "Carlos Best Auto Repair", desc: "Custom software engineering tailored for the automotive service industry in overseas markets. Ultra-lightweight responsive UI optimized for instant booking conversions.", url: "https://carlosbestautorepair.com/", tech: ["HTML5", "Custom CSS", "JavaScript"]},
+                    {cat: "corporativo", tag: "B2B Corporate Platform", role: "Lead End-to-End Developer", title: "MAJVI S.A.C.", desc: "Strategic development and comprehensive cloud implementation of the corporate digital infrastructure for an industrial engineering services company. Hardened security.", url: "https://majvisac.pe/", tech: ["B2B Structure", "Hosting & DNS", "CSS Grid"]},
+                    {cat: "corporativo", tag: "Digital Health Ecosystem", role: "Lead End-to-End Developer", title: "Konexxion Medica", desc: "Web architecture heavily focused on clinical institutional usability. Fluid UI designed with optimal response times to build corporate trust and secure patient paths.", url: "https://konexxionmedica.com/", tech: ["Digital Health", "PHP Architecture", "Technical SEO"]}
+                ],
+                // FAQs
+                faqs: [
+                    {q: "Why opt for custom-coded native development over basic page builders like Wix? +", a: "Cleanly engineered pages lack the massive block of unnecessary code overhead brought by generic drag-and-drop themes. This results in sub-second loading speeds, airtight application security against structural threats, and a significant rank advantage on Google's indexing engine."},
+                    {q: "How are server hosting and domain assets handled? +", a: "I advise you with absolute transparency to acquire your assets directly from primary global providers at wholesale cost. You retain full legal ownership and exclusive control of your credentials and access keys from day one."},
+                    {q: "Do your custom systems or websites come with technical support guarantees? +", a: "Yes, absolutely. Every delivery phase includes a strict audit and engineering support period covering unexpected issues, alongside clear technical documentation if your business needs to scale functions down the line."}
+                ]
+            }
+        };
+
+        let currentLang = localStorage.getItem('user-lang') || 'es';
+
+        function renderDynamicContent(lang) {
+            const data = diccionario[lang];
+            
+            // 1. WhatsApp Links
+            const wspUrl = `https://wa.me/51932210608?text=${encodeURIComponent(data["wsp-msg"])}`;
+            document.getElementById('wspLink').href = wspUrl;
+            document.getElementById('wspTextLink').href = wspUrl;
+
+            // 2. Timeline rendering
+            const timelineGrid = document.getElementById('timelineGrid');
+            timelineGrid.innerHTML = data.steps.map(step => `
+                <div class="proceso-step">
+                    <div class="num">${step.num}</div>
+                    <h3>${step.title}</h3>
+                    <p>${step.desc}</p>
+                </div>
+            `).join('');
+
+            // 3. Portfolio Grid rendering
+            const portfolioGrid = document.getElementById('portfolioGrid');
+            portfolioGrid.innerHTML = data.projects.map(proj => `
+                <div class="project-card" data-category="${proj.cat}">
+                    <div class="card-browser-header">
+                        <span class="browser-dot dot-red"></span>
+                        <span class="browser-dot dot-yellow"></span>
+                        <span class="browser-dot dot-green"></span>
+                    </div>
+                    <div class="card-body">
+                        <div>
+                            <span class="project-tag-cat">${proj.tag}</span>
+                            <span class="project-role">${data["role"]}: ${proj.role}</span>
+                            <h3>${proj.title}</h3>
+                            <p>${proj.desc}</p>
+                        </div>
+                        <div>
+                            <div class="project-links">
+                                <a href="${proj.url}" target="_blank" class="project-link-btn">${data["visit-site"]} <i class="fas fa-external-link-alt"></i></a>
+                            </div>
+                            <div class="tech-stack">
+                                ${proj.tech.map(t => `<span class="tech-tag">${t}</span>`).join('')}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            // 4. FAQ rendering
+            const faqGrid = document.getElementById('faqGrid');
+            faqGrid.innerHTML = data.faqs.map(faq => `
+                <div class="faq-item">
+                    <button class="faq-question">${faq.q}</button>
+                    <div class="faq-answer">${faq.a}</div>
+                </div>
+            `).join('');
+
+            // Re-enlaza el evento click de las FAQs dinámicas
+            const faqItems = document.querySelectorAll('.faq-item');
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question');
+                question.addEventListener('click', () => {
+                    const isOpen = item.classList.contains('active');
+                    faqItems.forEach(i => i.classList.remove('active'));
+                    if (!isOpen) item.classList.add('active');
+                });
             });
-        }, { threshold: 0.1 });
 
-        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+            // 5. Placeholders de Formulario
+            if(lang === 'es') {
+                document.getElementById('username').placeholder = "Ej. Ricardo Palacios";
+                document.getElementById('useremail').placeholder = "Ej. rpalacios@empresa.com";
+                document.getElementById('usermessage').placeholder = "Detalla el alcance o idea del sistema corporativo que deseas implementar...";
+            } else {
+                document.getElementById('username').placeholder = "e.g., Richard Palacios";
+                document.getElementById('useremail').placeholder = "e.g., rpalacios@company.com";
+                document.getElementById('usermessage').placeholder = "Detail the scope or core concept of the system you want to build...";
+            }
 
-        // 2. EFECTO CASCADA AUTOMÁTICA EN PORTAFOLIO (Intersection Observer dedicado)
-        const portfolioGrid = document.getElementById('portfolioGrid');
-        const cardsObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const visibleCards = entry.target.querySelectorAll('.project-card:not(.hidden)');
-                    visibleCards.forEach((card, index) => {
-                        // Aplica un retraso automático secuencial de 150ms a cada tarjeta
-                        setTimeout(() => {
-                            card.classList.add('animate-in');
-                        }, index * 150);
+            // Volver a aplicar animaciones
+            const cards = document.querySelectorAll('.project-card');
+            cards.forEach((card, index) => {
+                setTimeout(() => { card.classList.add('animate-in'); }, index * 120);
+            });
+        }
+
+        function switchLang(lang) {
+            currentLang = lang;
+            localStorage.setItem('user-lang', lang);
+            
+            // Toggle active buttons visual state
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                if(btn.textContent.toLowerCase() === lang) btn.classList.add('active');
+                else btn.classList.remove('active');
+            });
+
+            // Traducir los elementos estáticos marcados con data-i18n
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                el.innerText = diccionario[lang][key];
+            });
+
+            // Cambiar los H1 y textos largos específicos con selectores directos
+            document.getElementById('heroTitle').innerHTML = diccionario[lang]["hero-h1"];
+            document.getElementById('misionText').innerText = diccionario[lang]["mision-p"];
+            document.getElementById('visionText').innerText = diccionario[lang]["vision-p"];
+            document.getElementById('ctDesc').innerText = diccionario[lang]["ct-p"];
+
+            // Renderizar los arreglos de datos dinámicos
+            renderDynamicContent(lang);
+        }
+
+        // Ejecución al iniciar la página
+        window.addEventListener('DOMContentLoaded', () => {
+            switchLang(currentLang);
+
+            // Efecto Dinámico de Revelado por Scroll (Intersection Observer)
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) entry.target.classList.add('active');
+                });
+            }, { threshold: 0.1 });
+            document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+            // Filtro de Categorías del Portafolio
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            filterButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    filterButtons.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    const filterValue = btn.getAttribute('data-filter');
+                    const cards = document.querySelectorAll('.project-card');
+                    
+                    cards.forEach(card => {
+                        card.classList.remove('animate-in');
+                        if (filterValue === 'all' || card.getAttribute('data-category') === filterValue) {
+                            card.classList.remove('hidden');
+                        } else {
+                            card.classList.add('hidden');
+                        }
                     });
-                }
-            });
-        }, { threshold: 0.05 });
 
-        if(portfolioGrid) cardsObserver.observe(portfolioGrid);
-
-        // 3. Filtro de Categorías del Portafolio
-        const filterButtons = document.querySelectorAll('.filter-btn');
-        const projectCards = document.querySelectorAll('.project-card');
-
-        filterButtons.forEach(btn => {
-            btn.addEventListener('click', () => {
-                filterButtons.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-
-                const filterValue = btn.getAttribute('data-filter');
-
-                projectCards.forEach(card => {
-                    card.classList.remove('animate-in'); // Resetea animación
-                    if (filterValue === 'all' || card.getAttribute('data-category') === filterValue) {
-                        card.classList.remove('hidden');
-                    } else {
-                        card.classList.add('hidden');
-                    }
+                    const visibleCards = document.querySelectorAll('.project-card:not(.hidden)');
+                    visibleCards.forEach((card, index) => {
+                        setTimeout(() => { card.classList.add('animate-in'); }, index * 100);
+                    });
                 });
-
-                // Lanza de nuevo la animación secuencial para las tarjetas filtradas
-                const visibleCards = document.querySelectorAll('.project-card:not(.hidden)');
-                visibleCards.forEach((card, index) => {
-                    setTimeout(() => {
-                        card.classList.add('animate-in');
-                    }, index * 100);
-                });
-            });
-        });
-
-        // 4. Acordeón FAQs
-        const faqItems = document.querySelectorAll('.faq-item');
-        faqItems.forEach(item => {
-            const question = item.querySelector('.faq-question');
-            question.addEventListener('click', () => {
-                const isOpen = item.classList.contains('active');
-                faqItems.forEach(i => i.classList.remove('active'));
-                if (!isOpen) {
-                    item.classList.add('active');
-                }
             });
         });
     </script>
