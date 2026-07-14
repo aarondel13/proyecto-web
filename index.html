@@ -9,17 +9,19 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
         :root {
-            --bg-principal: #080c14; /* Gris plomo profundo */
-            --bg-superficie: #0f172a; /* Azul grisáceo oscuro para tarjetas */
-            --bg-superficie-hover: #1e293b;
+            --bg-principal: #070a12; /* Gris plomo profundo */
+            --bg-superficie: #0f1626; /* Azul grisáceo oscuro para tarjetas */
+            --bg-superficie-hover: #1b253b;
             --bg-borde: #1e293b; 
             --texto-principal: #f8fafc; 
             --texto-secundario: #94a3b8; 
             --acentuado: #38bdf8; /* Azul tecnológico insignia */
-            --acentuado-glow: rgba(56, 189, 248, 0.12);
+            --acentuado-glow: rgba(56, 189, 248, 0.15);
+            --whatsapp-color: #25d366;
             --fuente-sans: 'Inter', sans-serif;
             --fuente-mono: 'JetBrains Mono', monospace;
         }
@@ -60,7 +62,7 @@
             top: 0;
             left: 0;
             width: 100%;
-            background-color: rgba(8, 12, 20, 0.85);
+            background-color: rgba(7, 10, 18, 0.85);
             backdrop-filter: blur(12px);
             border-bottom: 1px solid var(--bg-borde);
             z-index: 100;
@@ -274,7 +276,7 @@
             font-size: 0.95rem;
         }
 
-        /* Portafolio Filtrable */
+        /* Portafolio Rediseñado (Efecto Navegador Premium) */
         .filter-container {
             display: flex;
             gap: 1rem;
@@ -303,24 +305,53 @@
         .portfolio-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
+            gap: 2.5rem;
         }
 
         .project-card {
             background-color: var(--bg-superficie);
             border: 1px solid var(--bg-borde);
-            border-radius: 8px;
-            padding: 2.5rem;
+            border-radius: 12px;
+            overflow: hidden;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        /* Mockup de Navegador superior */
+        .card-browser-header {
+            background-color: rgba(0, 0, 0, 0.2);
+            padding: 0.75rem 1.5rem;
+            border-bottom: 1px solid var(--bg-borde);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .browser-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+        .dot-red { background-color: #ef4444; }
+        .dot-yellow { background-color: #f59e0b; }
+        .dot-green { background-color: #10b981; }
+
+        .card-body {
+            padding: 2.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
         .project-card:hover {
-            transform: translateY(-6px);
+            transform: translateY(-8px);
             border-color: var(--acentuado);
-            box-shadow: 0 20px 40px var(--acentuado-glow);
+            box-shadow: 0 25px 50px var(--acentuado-glow);
         }
 
         .project-card.hidden {
@@ -370,6 +401,7 @@
             font-weight: 600;
             display: inline-flex;
             align-items: center;
+            gap: 0.5rem;
             transition: color 0.2s;
         }
 
@@ -442,7 +474,7 @@
             display: block;
         }
 
-        /* Contacto */
+        /* Contacto & Formulario Conectado */
         .contact-layout {
             display: grid;
             grid-template-columns: 1fr 1.2fr;
@@ -507,6 +539,49 @@
             border-color: var(--acentuado);
         }
 
+        /* --- BOTÓN FLOTANTE WHATSAPP --- */
+        .btn-whatsapp-flotante {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: var(--whatsapp-color);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 30px;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+            z-index: 999;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .btn-whatsapp-flotante:hover {
+            transform: scale(1.1) rotate(10deg);
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.6);
+        }
+
+        /* Efecto Pulso de WhatsApp */
+        .btn-whatsapp-flotante::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: var(--whatsapp-color);
+            border-radius: 50%;
+            z-index: -1;
+            animation: whatsappPulse 2s infinite;
+            opacity: 0.4;
+        }
+
+        @keyframes whatsappPulse {
+            0% { transform: scale(1); opacity: 0.5; }
+            100% { transform: scale(1.5); opacity: 0; }
+        }
+
         /* Footer */
         footer {
             max-width: 1200px;
@@ -535,6 +610,13 @@
     </style>
 </head>
 <body>
+
+    <a href="https://wa.me/51999999999?text=Hola%20Aar%C3%B3n,%20vi%20tu%20portafolio%20y%20me%20gustar%C3%ADa%20cotizar%20un%20proyecto." 
+       target="_blank" 
+       class="btn-whatsapp-flotante" 
+       aria-label="Contacto por WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
 
     <header>
         <div class="nav-container">
@@ -621,99 +703,133 @@
             <div class="portfolio-grid">
                 
                 <div class="project-card" data-category="corporativo">
-                    <div>
-                        <span class="project-tag-cat">Portal Corporativo</span>
-                        <span class="project-role">Rol: Co-Desarrollo Core & Arquitectura Base (Fase Inicial)</span>
-                        <h3>Centro Comercial Ecoplaza</h3>
-                        <p>Participación activa en el equipo de ingeniería a cargo de la maquetación base, estructuración inicial y desarrollo core de la plataforma del grupo empresarial. (Nota: Las actualizaciones y mantenimiento actual son gestionados por terceros).</p>
+                    <div class="card-browser-header">
+                        <span class="browser-dot dot-red"></span>
+                        <span class="browser-dot dot-yellow"></span>
+                        <span class="browser-dot dot-green"></span>
                     </div>
-                    <div>
-                        <div class="project-links">
-                            <a href="https://www.ecoplaza.com.pe/" target="_blank" class="project-link-btn">Visitar Sitio Web Oficial ↗</a>
+                    <div class="card-body">
+                        <div>
+                            <span class="project-tag-cat">Portal Corporativo</span>
+                            <span class="project-role">Rol: Co-Desarrollo Core & Arquitectura Base</span>
+                            <h3>Centro Comercial Ecoplaza</h3>
+                            <p>Participación activa en el equipo de ingeniería a cargo de la maquetación base, estructuración inicial y desarrollo core de la plataforma del grupo empresarial.</p>
                         </div>
-                        <div class="tech-stack">
-                            <span class="tech-tag">HTML5</span>
-                            <span class="tech-tag">CSS3</span>
-                            <span class="tech-tag">JavaScript</span>
-                            <span class="tech-tag">PHP</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-card" data-category="servicios">
-                    <div>
-                        <span class="project-tag-cat">Desarrollo Web & Conversión</span>
-                        <span class="project-role">Rol: Desarrollador Principal End-to-End</span>
-                        <h3>Asesores Tesis Perú</h3>
-                        <p>Diseño completo, implementación y despliegue integral de una plataforma web educativa orientada a la conversión masiva de leads. Estructura optimizada para captación ágil y SEO local fluido.</p>
-                    </div>
-                    <div>
-                        <div class="project-links">
-                            <a href="https://asesorestesisperu.com/" target="_blank" class="project-link-btn">Visitar Sitio Web Oficial ↗</a>
-                        </div>
-                        <div class="tech-stack">
-                            <span class="tech-tag">Web Design</span>
-                            <span class="tech-tag">WordPress Core</span>
-                            <span class="tech-tag">UI/UX</span>
-                            <span class="tech-tag">SEO</span>
+                        <div>
+                            <div class="project-links">
+                                <a href="https://www.ecoplaza.com.pe/" target="_blank" class="project-link-btn">Visitar Sitio <i class="fas fa-external-link-alt"></i></a>
+                            </div>
+                            <div class="tech-stack">
+                                <span class="tech-tag">HTML5</span>
+                                <span class="tech-tag">CSS3</span>
+                                <span class="tech-tag">JavaScript</span>
+                                <span class="tech-tag">PHP</span>
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="project-card" data-category="servicios">
-                    <div>
-                        <span class="project-tag-cat">Sitio Web Internacional</span>
-                        <span class="project-role">Rol: Desarrollador Principal End-to-End</span>
-                        <h3>Carlos Best Auto Repair</h3>
-                        <p>Ingeniería de software aplicada para el sector automotriz en el mercado extranjero. Interfaz responsive ultraligera adaptada para conversiones instantáneas y agendamiento de citas rápido.</p>
+                    <div class="card-browser-header">
+                        <span class="browser-dot dot-red"></span>
+                        <span class="browser-dot dot-yellow"></span>
+                        <span class="browser-dot dot-green"></span>
                     </div>
-                    <div>
-                        <div class="project-links">
-                            <a href="https://carlosbestautorepair.com/" target="_blank" class="project-link-btn">Visitar Sitio Web Oficial ↗</a>
+                    <div class="card-body">
+                        <div>
+                            <span class="project-tag-cat">Desarrollo Web & Conversión</span>
+                            <span class="project-role">Rol: Desarrollador Principal End-to-End</span>
+                            <h3>Asesores Tesis Perú</h3>
+                            <p>Diseño completo, implementación y despliegue integral de una plataforma web educativa orientada a la conversión masiva de leads. Estructura optimizada para captación ágil y SEO local.</p>
                         </div>
-                        <div class="tech-stack">
-                            <span class="tech-tag">HTML5</span>
-                            <span class="tech-tag">Custom CSS</span>
-                            <span class="tech-tag">JavaScript</span>
-                            <span class="tech-tag">Internacionalización</span>
+                        <div>
+                            <div class="project-links">
+                                <a href="https://asesorestesisperu.com/" target="_blank" class="project-link-btn">Visitar Sitio <i class="fas fa-external-link-alt"></i></a>
+                            </div>
+                            <div class="tech-stack">
+                                <span class="tech-tag">Web Design</span>
+                                <span class="tech-tag">WordPress Core</span>
+                                <span class="tech-tag">UI/UX</span>
+                                <span class="tech-tag">SEO</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card" data-category="servicios">
+                    <div class="card-browser-header">
+                        <span class="browser-dot dot-red"></span>
+                        <span class="browser-dot dot-yellow"></span>
+                        <span class="browser-dot dot-green"></span>
+                    </div>
+                    <div class="card-body">
+                        <div>
+                            <span class="project-tag-cat">Sitio Web Internacional</span>
+                            <span class="project-role">Rol: Desarrollador Principal End-to-End</span>
+                            <h3>Carlos Best Auto Repair</h3>
+                            <p>Ingeniería de software aplicada para el sector automotriz en el mercado extranjero. Interfaz responsive ultraligera adaptada para conversiones instantáneas.</p>
+                        </div>
+                        <div>
+                            <div class="project-links">
+                                <a href="https://carlosbestautorepair.com/" target="_blank" class="project-link-btn">Visitar Sitio <i class="fas fa-external-link-alt"></i></a>
+                            </div>
+                            <div class="tech-stack">
+                                <span class="tech-tag">HTML5</span>
+                                <span class="tech-tag">Custom CSS</span>
+                                <span class="tech-tag">JavaScript</span>
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="project-card" data-category="corporativo">
-                    <div>
-                        <span class="project-tag-cat">Plataforma Empresarial B2B</span>
-                        <span class="project-role">Rol: Desarrollador Principal End-to-End</span>
-                        <h3>MAJVI S.A.C.</h3>
-                        <p>Desarrollo estratégico integral de la identidad y presencia digital corporativa de una empresa de servicios industriales e ingeniería. Código seguro y optimización completa del servidor.</p>
+                    <div class="card-browser-header">
+                        <span class="browser-dot dot-red"></span>
+                        <span class="browser-dot dot-yellow"></span>
+                        <span class="browser-dot dot-green"></span>
                     </div>
-                    <div>
-                        <div class="project-links">
-                            <a href="https://majvisac.pe/" target="_blank" class="project-link-btn">Visitar Sitio Web Oficial ↗</a>
+                    <div class="card-body">
+                        <div>
+                            <span class="project-tag-cat">Plataforma Empresarial B2B</span>
+                            <span class="project-role">Rol: Desarrollador Principal End-to-End</span>
+                            <h3>MAJVI S.A.C.</h3>
+                            <p>Desarrollo estratégico integral de la identidad y presencia digital corporativa de una empresa de servicios industriales e ingeniería. Código seguro.</p>
                         </div>
-                        <div class="tech-stack">
-                            <span class="tech-tag">Estructura B2B</span>
-                            <span class="tech-tag">Hosting & DNS</span>
-                            <span class="tech-tag">CSS Grid</span>
+                        <div>
+                            <div class="project-links">
+                                <a href="https://majvisac.pe/" target="_blank" class="project-link-btn">Visitar Sitio <i class="fas fa-external-link-alt"></i></a>
+                            </div>
+                            <div class="tech-stack">
+                                <span class="tech-tag">Estructura B2B</span>
+                                <span class="tech-tag">Hosting & DNS</span>
+                                <span class="tech-tag">CSS Grid</span>
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="project-card" data-category="corporativo">
-                    <div>
-                        <span class="project-tag-cat">Ecosistema Salud & Digital</span>
-                        <span class="project-role">Rol: Desarrollador Principal End-to-End</span>
-                        <h3>Konexxion Médica</h3>
-                        <p>Diseño web enfocado en la usabilidad médica institucional. Arquitectura fluida con tiempos de respuesta óptimos orientados a transmitir solidez corporativa y confianza absoluta al paciente.</p>
+                    <div class="card-browser-header">
+                        <span class="browser-dot dot-red"></span>
+                        <span class="browser-dot dot-yellow"></span>
+                        <span class="browser-dot dot-green"></span>
                     </div>
-                    <div>
-                        <div class="project-links">
-                            <a href="https://konexxionmedica.com/" target="_blank" class="project-link-btn">Visitar Sitio Web Oficial ↗</a>
+                    <div class="card-body">
+                        <div>
+                            <span class="project-tag-cat">Ecosistema Salud & Digital</span>
+                            <span class="project-role">Rol: Desarrollador Principal End-to-End</span>
+                            <h3>Konexxion Médica</h3>
+                            <p>Diseño web enfocado en la usabilidad médica institucional. Arquitectura fluida con tiempos de respuesta óptimos orientados a transmitir solidez corporativa.</p>
                         </div>
-                        <div class="tech-stack">
-                            <span class="tech-tag">Salud Digital</span>
-                            <span class="tech-tag">PHP Architecture</span>
-                            <span class="tech-tag">SEO Técnico</span>
+                        <div>
+                            <div class="project-links">
+                                <a href="https://konexxionmedica.com/" target="_blank" class="project-link-btn">Visitar Sitio <i class="fas fa-external-link-alt"></i></a>
+                            </div>
+                            <div class="tech-stack">
+                                <span class="tech-tag">Salud Digital</span>
+                                <span class="tech-tag">PHP Architecture</span>
+                                <span class="tech-tag">SEO Técnico</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -755,23 +871,28 @@
                     <span>05. Conexión Directa</span>
                     <h3>¿Listo para iniciar tu desarrollo?</h3>
                     <p>Cuéntame los objetivos operativos que deseas automatizar o el sitio web que tu marca necesita proyectar para diseñar la infraestructura exacta.</p>
-                    <a href="mailto:aaronchavezdev@gmail.com" class="info-link">aaronchavezdev@gmail.com</a>
-                    <a href="#" class="info-link">LinkedIn Corporativo</a>
+                    <a href="mailto:aaronbautista784@gmail.com" class="info-link"><i class="fas fa-envelope"></i> aaronbautista784@gmail.com</a>
+                    <a href="https://wa.me/51932210608" target="_blank" class="info-link"><i class="fab fa-whatsapp"></i> Contacto Inmediato</a>
                 </div>
                 
-                <form class="contact-form" id="mainForm">
+                <form class="contact-form" action="https://formsubmit.co/aaronbautista784@gmail.com" method="POST">
+                    
+                    <input type="hidden" name="_captcha" value="false">
+                    <input type="hidden" name="_template" value="table">
+                    
                     <div class="form-group">
                         <label for="username">Tu Nombre Completo</label>
-                        <input type="text" id="username" required placeholder="Ej. Ricardo Palacios">
+                        <input type="text" id="username" name="Nombre" required placeholder="Ej. Ricardo Palacios">
                     </div>
                     <div class="form-group">
-                        <label for="useremail">Correo Corporativo</label>
-                        <input type="email" id="useremail" required placeholder="Ej. rpalacios@empresa.com">
+                        <label for="useremail">Correo de Contacto</label>
+                        <input type="email" id="useremail" name="Email" required placeholder="Ej. rpalacios@empresa.com">
                     </div>
                     <div class="form-group">
                         <label for="usermessage">Describe los requerimientos del software o web</label>
-                        <textarea id="usermessage" rows="5" required placeholder="Detalla el alcance o idea del sistema corporativo que deseas implementar..."></textarea>
+                        <textarea id="usermessage" name="Mensaje" rows="5" required placeholder="Detalla el alcance o idea del sistema corporativo que deseas implementar..."></textarea>
                     </div>
+                    
                     <button type="submit" class="btn-principal" style="cursor: pointer; border: none;">Enviar consulta técnica</button>
                 </form>
             </div>
@@ -827,13 +948,6 @@
                     item.classList.add('active');
                 }
             });
-        });
-
-        // 4. Envío del Formulario
-        document.getElementById('mainForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('¡Mensaje procesado con éxito en el frontend! Tu arquitectura web está respondiendo al 100%.');
-            this.reset();
         });
     </script>
 </body>
