@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aarón Chávez | Desarrollador de Software & Sistemas Web</title>
+    
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14' fill='%23070a12' stroke='%2338bdf8' stroke-width='2'/%3E%3Cpath d='M9 22l5-12 4 9.5' stroke='%23f8fafc' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3Cpath d='M24 12.5a4.5 4.5 0 1 0 0 7' stroke='%23f8fafc' stroke-width='2' stroke-linecap='round' fill='none'/%3E%3Cpath d='M21 22h4' stroke='%2338bdf8' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E">
+
     <meta name="description" content="Desarrollo a medida de sitios web de alto rendimiento y sistemas de gestión corporativos. Portafolio profesional de ingeniería de software por Aarón Chávez.">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -14,13 +16,13 @@
 
     <style>
         :root {
-            --bg-principal: #070a12; /* Gris plomo profundo */
-            --bg-superficie: #0f1626; /* Azul grisáceo oscuro para tarjetas */
-            --bg-superficie-hover: #1b253b;
+            --bg-principal: #060911; /* Gris plomo hiper profundo */
+            --bg-superficie: #0b1120; /* Azul grisáceo oscuro para tarjetas */
+            --bg-superficie-hover: #131b2e;
             --bg-borde: #1e293b; 
             --texto-principal: #f8fafc; 
             --texto-secundario: #94a3b8; 
-            --acentuado: #38bdf8; /* Azul tecnológico insignia */
+            --acentuado: #38bdf8; /* Azul tecnológico */
             --acentuado-glow: rgba(56, 189, 248, 0.15);
             --whatsapp-color: #25d366;
             --fuente-sans: 'Inter', sans-serif;
@@ -43,9 +45,39 @@
             color: var(--texto-principal);
             line-height: 1.7;
             overflow-x: hidden;
+            position: relative;
         }
 
-        /* --- Efecto de Revelado por Scroll --- */
+        /* --- EFECTOS DE AURORAS DE FONDO (GLOW BLOBS) --- */
+        .glow-bg {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(56, 189, 248, 0.05) 0%, rgba(0,0,0,0) 70%);
+            top: -100px;
+            right: -100px;
+            z-index: -1;
+            pointer-events: none;
+            animation: floatGlow 10s infinite alternate;
+        }
+
+        .glow-bg-2 {
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(148, 163, 184, 0.03) 0%, rgba(0,0,0,0) 70%);
+            top: 1200px;
+            left: -200px;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        @keyframes floatGlow {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(-50px, 50px); }
+        }
+
+        /* --- Efecto de Revelado base por Scroll --- */
         .reveal {
             opacity: 0;
             transform: translateY(30px);
@@ -63,7 +95,7 @@
             top: 0;
             left: 0;
             width: 100%;
-            background-color: rgba(7, 10, 18, 0.85);
+            background-color: rgba(6, 9, 17, 0.85);
             backdrop-filter: blur(12px);
             border-bottom: 1px solid var(--bg-borde);
             z-index: 100;
@@ -250,7 +282,7 @@
         }
 
         .proceso-step {
-            background-color: rgba(15, 23, 42, 0.4);
+            background-color: rgba(11, 17, 32, 0.4);
             border: 1px solid var(--bg-borde);
             padding: 2.5rem 2rem;
             border-radius: 8px;
@@ -309,6 +341,7 @@
             gap: 2.5rem;
         }
 
+        /* --- EFECTO CASCADA PARA TARJETAS --- */
         .project-card {
             background-color: var(--bg-superficie);
             border: 1px solid var(--bg-borde);
@@ -317,11 +350,19 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            
+            /* Preparación para la animación por JS */
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s, box-shadow 0.3s;
         }
 
-        /* Mockup de Navegador superior */
+        .project-card.animate-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
         .card-browser-header {
             background-color: rgba(0, 0, 0, 0.2);
             padding: 0.75rem 1.5rem;
@@ -350,13 +391,13 @@
         }
 
         .project-card:hover {
-            transform: translateY(-8px);
+            transform: translateY(-8px) !important;
             border-color: var(--acentuado);
             box-shadow: 0 25px 50px var(--acentuado-glow);
         }
 
         .project-card.hidden {
-            display: none;
+            display: none !important;
         }
 
         .project-tag-cat {
@@ -475,7 +516,7 @@
             display: block;
         }
 
-        /* Contacto & Formulario Conectado */
+        /* Contacto */
         .contact-layout {
             display: grid;
             grid-template-columns: 1fr 1.2fr;
@@ -540,7 +581,7 @@
             border-color: var(--acentuado);
         }
 
-        /* --- BOTÓN FLOTANTE WHATSAPP --- */
+        /* --- BOTÓN FLOTANTE WHATSAPP REAL --- */
         .btn-whatsapp-flotante {
             position: fixed;
             bottom: 30px;
@@ -565,7 +606,6 @@
             box-shadow: 0 6px 20px rgba(37, 211, 102, 0.6);
         }
 
-        /* Efecto Pulso de WhatsApp */
         .btn-whatsapp-flotante::before {
             content: '';
             position: absolute;
@@ -577,6 +617,8 @@
             animation: whatsappPulse 2s infinite;
             opacity: 0.4;
         }
+
+        @pragma { visibility: hidden; }
 
         @keyframes whatsappPulse {
             0% { transform: scale(1); opacity: 0.5; }
@@ -611,6 +653,9 @@
     </style>
 </head>
 <body>
+
+    <div class="glow-bg"></div>
+    <div class="glow-bg-2"></div>
 
     <a href="https://wa.me/51932210608?text=Hola%20Aar%C3%B3n,%20vi%20tu%20portafolio%20y%20me%20gustar%C3%ADa%20cotizar%20un%20proyecto." 
        target="_blank" 
@@ -701,7 +746,7 @@
                 <button class="filter-btn" data-filter="servicios">Sitios de Servicios</button>
             </div>
 
-            <div class="portfolio-grid">
+            <div class="portfolio-grid" id="portfolioGrid">
                 
                 <div class="project-card" data-category="corporativo">
                     <div class="card-browser-header">
@@ -718,7 +763,7 @@
                         </div>
                         <div>
                             <div class="project-links">
-                                <a href="https://www.ecoplaza.com.pe/" target="_blank" class="project-link-btn">Visitar Sitio <i class="fas fa-external-link-alt"></i></a>
+                                <a href="https://www.ecoplaza.com.pe/" target="_blank" class="project-link-btn">Visitar Sitio Web <i class="fas fa-external-link-alt"></i></a>
                             </div>
                             <div class="tech-stack">
                                 <span class="tech-tag">HTML5</span>
@@ -745,7 +790,7 @@
                         </div>
                         <div>
                             <div class="project-links">
-                                <a href="https://asesorestesisperu.com/" target="_blank" class="project-link-btn">Visitar Sitio <i class="fas fa-external-link-alt"></i></a>
+                                <a href="https://asesorestesisperu.com/" target="_blank" class="project-link-btn">Visitar Sitio Web <i class="fas fa-external-link-alt"></i></a>
                             </div>
                             <div class="tech-stack">
                                 <span class="tech-tag">Web Design</span>
@@ -772,7 +817,7 @@
                         </div>
                         <div>
                             <div class="project-links">
-                                <a href="https://carlosbestautorepair.com/" target="_blank" class="project-link-btn">Visitar Sitio <i class="fas fa-external-link-alt"></i></a>
+                                <a href="https://carlosbestautorepair.com/" target="_blank" class="project-link-btn">Visitar Sitio Web <i class="fas fa-external-link-alt"></i></a>
                             </div>
                             <div class="tech-stack">
                                 <span class="tech-tag">HTML5</span>
@@ -798,7 +843,7 @@
                         </div>
                         <div>
                             <div class="project-links">
-                                <a href="https://majvisac.pe/" target="_blank" class="project-link-btn">Visitar Sitio <i class="fas fa-external-link-alt"></i></a>
+                                <a href="https://majvisac.pe/" target="_blank" class="project-link-btn">Visitar Sitio Web <i class="fas fa-external-link-alt"></i></a>
                             </div>
                             <div class="tech-stack">
                                 <span class="tech-tag">Estructura B2B</span>
@@ -824,7 +869,7 @@
                         </div>
                         <div>
                             <div class="project-links">
-                                <a href="https://konexxionmedica.com/" target="_blank" class="project-link-btn">Visitar Sitio <i class="fas fa-external-link-alt"></i></a>
+                                <a href="https://konexxionmedica.com/" target="_blank" class="project-link-btn">Visitar Sitio Web <i class="fas fa-external-link-alt"></i></a>
                             </div>
                             <div class="tech-stack">
                                 <span class="tech-tag">Salud Digital</span>
@@ -873,11 +918,10 @@
                     <h3>¿Listo para iniciar tu desarrollo?</h3>
                     <p>Cuéntame los objetivos operativos que deseas automatizar o el sitio web que tu marca necesita proyectar para diseñar la infraestructura exacta.</p>
                     <a href="mailto:aaronbautista784@gmail.com" class="info-link"><i class="fas fa-envelope"></i> aaronbautista784@gmail.com</a>
-                    <a href="https://wa.me/51932210608" target="_blank" class="info-link"><i class="fab fa-whatsapp"></i> Contacto Inmediato</a>
+                    <a href="https://wa.me/51932210608" target="_blank" class="info-link"><i class="fab fa-whatsapp"></i> +51 932 210 608</a>
                 </div>
                 
                 <form class="contact-form" action="https://formsubmit.co/aaronbautista784@gmail.com" method="POST">
-                    
                     <input type="hidden" name="_captcha" value="false">
                     <input type="hidden" name="_template" value="table">
                     
@@ -917,7 +961,25 @@
 
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-        // 2. Filtro de Categorías del Portafolio
+        // 2. EFECTO CASCADA AUTOMÁTICA EN PORTAFOLIO (Intersection Observer dedicado)
+        const portfolioGrid = document.getElementById('portfolioGrid');
+        const cardsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const visibleCards = entry.target.querySelectorAll('.project-card:not(.hidden)');
+                    visibleCards.forEach((card, index) => {
+                        // Aplica un retraso automático secuencial de 150ms a cada tarjeta
+                        setTimeout(() => {
+                            card.classList.add('animate-in');
+                        }, index * 150);
+                    });
+                }
+            });
+        }, { threshold: 0.05 });
+
+        if(portfolioGrid) cardsObserver.observe(portfolioGrid);
+
+        // 3. Filtro de Categorías del Portafolio
         const filterButtons = document.querySelectorAll('.filter-btn');
         const projectCards = document.querySelectorAll('.project-card');
 
@@ -929,16 +991,25 @@
                 const filterValue = btn.getAttribute('data-filter');
 
                 projectCards.forEach(card => {
+                    card.classList.remove('animate-in'); // Resetea animación
                     if (filterValue === 'all' || card.getAttribute('data-category') === filterValue) {
                         card.classList.remove('hidden');
                     } else {
                         card.classList.add('hidden');
                     }
                 });
+
+                // Lanza de nuevo la animación secuencial para las tarjetas filtradas
+                const visibleCards = document.querySelectorAll('.project-card:not(.hidden)');
+                visibleCards.forEach((card, index) => {
+                    setTimeout(() => {
+                        card.classList.add('animate-in');
+                    }, index * 100);
+                });
             });
         });
 
-        // 3. Acordeón FAQs
+        // 4. Acordeón FAQs
         const faqItems = document.querySelectorAll('.faq-item');
         faqItems.forEach(item => {
             const question = item.querySelector('.faq-question');
