@@ -1,1 +1,2 @@
-Versión 2.1. Subir el contenido de este ZIP a la raíz del repositorio GitHub, no el ZIP. Mantener las carpetas en, proyectos y demo. La demo usa datos ficticios, no contiene conexiones a sistemas reales. Revisar autorización contractual antes de publicar referencias a proyectos. Tras publicar, comprobar enlaces y reenviar sitemap.xml en Search Console.
+VERSION 2.2
+Subir el contenido del ZIP a la raíz del repositorio, conservando carpetas. Reemplazar archivos existentes. La antigua ruta demo redirige al recorrido visual. Las vistas son recreaciones HTML/CSS con datos ficticios, no capturas del cliente. Mantener sitemap.xml y robots.txt.
