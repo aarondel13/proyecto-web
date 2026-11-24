@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://aaronchavezdev.vercel.app/sitemap.xml
